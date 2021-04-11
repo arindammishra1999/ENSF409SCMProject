@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * This class handles the calulating of the best option
  * to create the desired furniture piece
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  * @author Kaitlin Culligan
  */
@@ -30,10 +30,10 @@ public class Calculations {
      * @return the lowest possible cost
      */
     public int choseBestPrice(){
-        int bestPrice = this.costOptions.getValue(0);
-        for(Node i:this.costOptions){
-            if(i.getValue()<bestPrice){
-                bestPrice=i.getValue();
+        int bestPrice = this.costOptions.get(0);
+        for(int i:this.costOptions){
+            if(i<bestPrice){
+                bestPrice=i;
             }
         }
     }
@@ -59,14 +59,14 @@ public class Calculations {
                         s.add(results.getString(i));
                     }
                 }
-                boolean[] availability = makeBooleanArray(s.toStringArray());
+                boolean[] availability = makeBooleanArray(toStringArray(s));
                 furniture.add(new Furniture(results.getString("Type"),results.getString("ID"),results.getInt("Price"), availability));
             }
         }
 
         
         String[] temp = createOptions();
-        if(temp[0]=="0"){
+        if(temp[0].equals("0")){
             return ids;
         }
         else{
@@ -141,7 +141,11 @@ public class Calculations {
        }
 
        int cost = choseBestPrice();
-       String[] idForSelected = (String)cost + idsForEachCostOption.get(costOptions.indexOf(cost));
+       String[] idForSelected = new String[idsForEachCostOption.get(costOptions.indexOf(cost)).length];
+       idForSelected[0] = String.valueOf(cost);
+       for(int i = 0; i <idsForEachCostOption.get(costOptions.indexOf(cost)).length;i++){
+        idForSelected[i+1] = idsForEachCostOption.get(costOptions.indexOf(cost))[i];
+       }
        return idForSelected;
        }
 
@@ -225,5 +229,18 @@ public class Calculations {
             }
         }
         return cost;
+    }
+
+    /**
+     * converts a String ArrayList to a String array
+     * @param s String ArrayList to convert
+     * @return converted String Array
+     */
+    private String[] toStringArray(ArrayList<String> s){
+        String[] array = new String[s.size()];
+        for(int i = 0; i < s.size();i++){
+            array[i] = s.get(i);
+        }
+        return array;
     }
 }
