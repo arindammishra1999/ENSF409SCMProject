@@ -8,7 +8,7 @@ import edu.ucalgary.ensf409.Furniture;
 
 /**
  * This class handles the calulating of the best option
- * to create the desired furniture piece 
+ * to create the desired furniture piece
  * @version 1.1
  * @since 1.0
  * @author Kaitlin Culligan
@@ -33,10 +33,14 @@ public class Calculations {
      * @return the lowest possible cost
      */
     public int choseBestPrice(){
+        //add option that if # of costOptions is 0 it'll return 0
+        if(costOptions.size() == 0){
+            return 0;
+        }
         int bestPrice = this.costOptions.get(0);
-        for(int i:this.costOptions){
-            if(i<bestPrice){
-                bestPrice=i;
+        for(int i = 0; i < this.costOptions.size();i++){
+            if(this.costOptions.get(i)<bestPrice){
+                bestPrice=this.costOptions.get(i);
             }
         }
         return bestPrice;
@@ -58,7 +62,7 @@ public class Calculations {
                 if(checkFurnitureType(furnitureType, results.getString("Type"))){
                     ArrayList<String> s = new ArrayList<String>();
                     ResultSetMetaData rsmd = results.getMetaData();
-                    for(int i = 0; i < rsmd.getColumnCount(); i++){
+                    for(int i = 1; i < rsmd.getColumnCount()+1; i++){
                         if(results.getString(i).equals("Y") || results.getString(i).equals("N")){
                             s.add(results.getString(i));
                         }
@@ -68,7 +72,7 @@ public class Calculations {
                 }
             }
 
-            
+            System.out.println("There are "+furniture.size()+" furniture pieces of this type");
             String[] temp = createOptions();
             if(temp[0].equals("0")){
                 return ids;
@@ -130,7 +134,6 @@ public class Calculations {
      * @return String array containing the best cost, and corresponding ids
      */
     public String[] createOptions(){
-        //In the event of a rewrite, this is the function that would be kept/have the fewest modifications
         boolean[] b = createAllTrueArray(furniture.get(0).getPiecesAvailable().length);
        for(int i = 0; i <furniture.size();i++){
            String[] idCombo = {furniture.get(i).getID()};
@@ -138,8 +141,8 @@ public class Calculations {
            for(int j=0; j<furniture.size();j++){
                 if(!checkArrayEquivalency(parts, furniture.get(j).getPiecesAvailable()) && 
                 !checkArrayEquivalency(parts, b)){
-                    addToBooleanArray(parts, furniture.get(j).getPiecesAvailable());
-                    addToStringArray(idCombo, furniture.get(j).getID());
+                    parts = addToBooleanArray(parts, furniture.get(j).getPiecesAvailable());
+                    idCombo = addToStringArray(idCombo, furniture.get(j).getID());
                 }
            }
            if(checkArrayEquivalency(parts, b)&&!idsForEachCostOption.contains(idCombo)){
@@ -148,11 +151,20 @@ public class Calculations {
            }
        }
 
+       System.out.println("There are "+costOptions.size()+" options for costs");
+       for(int i =0; i < costOptions.size(); i++){
+        System.out.println(costOptions.get(i));
+       }
+       
        int cost = choseBestPrice();
+       if(cost == 0){
+           String[] error = {"0"};
+           return error;
+       }
        String[] idForSelected = new String[idsForEachCostOption.get(costOptions.indexOf(cost)).length];
        idForSelected[0] = String.valueOf(cost);
-       for(int i = 0; i <idsForEachCostOption.get(costOptions.indexOf(cost)).length;i++){
-        idForSelected[i+1] = idsForEachCostOption.get(costOptions.indexOf(cost))[i];
+       for(int i = 1; i <idsForEachCostOption.get(costOptions.indexOf(cost)).length;i++){
+        idForSelected[i] = idsForEachCostOption.get(costOptions.indexOf(cost))[i];
        }
        return idForSelected;
        }
