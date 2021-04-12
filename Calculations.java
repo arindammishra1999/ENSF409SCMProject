@@ -8,7 +8,7 @@ import edu.ucalgary.ensf409.Furniture;
 
 /**
  * This class handles the calulating of the best option
- * to create the desired furniture piece
+ * to create the desired furniture piece 
  * @version 1.1
  * @since 1.0
  * @author Kaitlin Culligan
