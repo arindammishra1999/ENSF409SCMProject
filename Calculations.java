@@ -1,7 +1,10 @@
 package edu.ucalgary.ensf409;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import edu.ucalgary.ensf409.Furniture;
 
 /**
  * This class handles the calulating of the best option
@@ -36,6 +39,7 @@ public class Calculations {
                 bestPrice=i;
             }
         }
+        return bestPrice;
     }
 
     /**
@@ -45,32 +49,35 @@ public class Calculations {
      * @param furnitureType The desired type of furniture (sub type)
      * @return String array containing the total price, and ids of needed funiture
      */
-    public String[] calculatePrices(ResultSet results, String furnitureType){
-        String[] ids = {"error"};
-
-        //loop through results checking the one column to see if type matches,
-        //if it does pull the info from the needed rows
-        while(results.next()){
-            if(checkFurnitureType(furnitureType, results.getString("Type"))){
-                ArrayList<String> s = new ArrayList<String>();
-                ResultSetMetaData rsmd = results.getMetaData();
-                for(int i = 0; i < rsmd.getColumnCount(); i++){
-                    if(results.getString(i).equals("Y") || results.getString(i).equals("N")){
-                        s.add(results.getString(i));
+    public String[] calculatePrices(ResultSet results, String furnitureType) throws SQLException{
+        String[] ids = {"0"};
+        try{
+            //loop through results checking the one column to see if type matches,
+            //if it does pull the info from the needed rows
+            while(results.next()){
+                if(checkFurnitureType(furnitureType, results.getString("Type"))){
+                    ArrayList<String> s = new ArrayList<String>();
+                    ResultSetMetaData rsmd = results.getMetaData();
+                    for(int i = 0; i < rsmd.getColumnCount(); i++){
+                        if(results.getString(i).equals("Y") || results.getString(i).equals("N")){
+                            s.add(results.getString(i));
+                        }
                     }
+                    boolean[] availability = makeBooleanArray(toStringArray(s));
+                    furniture.add(new Furniture(results.getString("Type"),results.getString("ID"),results.getInt("Price"), availability));
                 }
-                boolean[] availability = makeBooleanArray(toStringArray(s));
-                furniture.add(new Furniture(results.getString("Type"),results.getString("ID"),results.getInt("Price"), availability));
             }
-        }
 
-        
-        String[] temp = createOptions();
-        if(temp[0].equals("0")){
-            return ids;
-        }
-        else{
-            ids = temp;
+            
+            String[] temp = createOptions();
+            if(temp[0].equals("0")){
+                return ids;
+            }
+            else{
+                ids = temp;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
         }
         return ids;
     }
@@ -123,6 +130,7 @@ public class Calculations {
      * @return String array containing the best cost, and corresponding ids
      */
     public String[] createOptions(){
+        //In the event of a rewrite, this is the function that would be kept/have the fewest modifications
         boolean[] b = createAllTrueArray(furniture.get(0).getPiecesAvailable().length);
        for(int i = 0; i <furniture.size();i++){
            String[] idCombo = {furniture.get(i).getID()};
@@ -242,5 +250,9 @@ public class Calculations {
             array[i] = s.get(i);
         }
         return array;
+    }
+
+    public ArrayList<Furniture> getFurnitureArray(){
+        return this.furniture;
     }
 }
