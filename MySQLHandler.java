@@ -76,7 +76,7 @@ import java.sql.Statement;
         try {   
         	while(numberOfItems>0) {
             Statement myStmt = dbConnect.createStatement();
-            results = myStmt.executeQuery("SELECT * FROM"+ table);
+            results = myStmt.executeQuery("SELECT * FROM "+ table);
             
              String [] arrayTemp = calculator.calculatePrices(results, type);
              
