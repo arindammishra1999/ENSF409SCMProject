@@ -96,6 +96,7 @@ public class Printing {
 		       System.out.println("Error in closing the BufferedWriter"+ex);
 		    }
 		}
+	 return "Something went very wrong";
     }
  
  /**
