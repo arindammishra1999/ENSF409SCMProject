@@ -234,17 +234,5 @@ public class CalculationsTest {
       e.printStackTrace();
   }
   }
- /* @Test
-  public void testFindsAllOfSubtype(){
-    //think I need a getter to find this
-    String number = 3;
-    MySQLHandler sql = new MySQLHandler();
-    sql.selectFurnitureToOrder("chair","Task");
-    assertEquals(number, sql.getFurnitureArray().length);
-  }*/
-
-  //need to think of edge cases to test
-
-
 
 }
