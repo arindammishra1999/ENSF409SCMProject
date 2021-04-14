@@ -7,10 +7,18 @@ import edu.ucalgary.ensf409.Furniture;
 import edu.ucalgary.ensf409.MySQLHandler;
 import jdk.jfr.Timestamp;
 
+/**
+ * This class handles unit testing of Furniture
+ * @version 1.0
+ * @since 1.0
+ * @author Kaitlin Culligan, Arindam Mishra, Kunal Dhawan
+ */
 //unit tests for project
 public class FurnitureTest {
   
-
+/**
+ * tests getter for id
+ */
   @Test
   public void testGetterForID(){
     boolean[] a = {true,false,true,false};
@@ -18,6 +26,9 @@ public class FurnitureTest {
     assertEquals("D025", f.getID());
   }
 
+  /**
+   * tests getter for price
+   */
   @Test
   public void testGetterForPrice(){
     boolean[] a = {true,false,true,false};
@@ -25,6 +36,9 @@ public class FurnitureTest {
     assertEquals(25, f.getPrice());
   }
 
+  /**
+   * tests getter for availability
+   */
   @Test
   public void testGetterForAvailability(){
     boolean[] a = {true,false,true,false};
@@ -32,7 +46,9 @@ public class FurnitureTest {
     assertEquals(a, f.getPiecesAvailable());
   }
 
-
+/**
+ * tests getter for subtype
+ */
   @Test
   public void testGetterForType(){
     boolean[] a = {true,false,true,false};

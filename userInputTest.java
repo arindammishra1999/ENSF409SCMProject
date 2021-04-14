@@ -4,22 +4,18 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.*;
 import edu.ucalgary.ensf409.userInput;
-
+/**
+ * This class handles unit testing of userInput
+ * @version 1.0
+ * @since 1.0
+ * @author Kaitlin Culligan, Arindam Mishra, Kunal Dhawan
+ */
 //unit tests for project
 public class userInputTest {
   
- /*  for reference only remove/ignore
-    @Test
-    public void testProperInputs(){
-        userInput u = new userInput();
-        String input = "add 5";
-        u = new cat(input.getBytes());
-        System.setIn(u);
-
-        assertEquals("add 5", inputOutput.getInput());
-    }
-*/
-  
+    /**
+     * tests userInput's response to incorrect type
+     */
     @Test
     public void testIncorrectTypeInput(){	
     	boolean expected = false;
@@ -28,6 +24,9 @@ public class userInputTest {
 
     }
 
+    /**
+     * tests userInput's response to incorrect category
+     */
     @Test
     public void testIncorrectCategoryInput(){
     	boolean expected= false;
@@ -36,6 +35,9 @@ public class userInputTest {
         //say a table
     }
 
+    /**
+     * tests userInput's response to checking that the correct args are numeric
+     */
     @Test
     public void testForIsNumericMethod(){
     	boolean expected = true;

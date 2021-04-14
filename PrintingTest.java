@@ -4,11 +4,20 @@ import org.junit.Test;
 import org.junit.*;
 import edu.ucalgary.ensf409.MySQLHandler;
 
+/**
+ * This class handles unit testing of Printing
+ * @version 1.0
+ * @since 1.0
+ * @author Kaitlin Culligan, Arindam Mishra, Kunal Dhawan
+ */
 //unit tests for project
 public class PrintingTest {
   
   //may need to rewrite part of class to do unit tests of this
   //test manufacturers list printout
+  /**
+   * tests printing of manufacturers list
+   */
   @Test
   public void testManufacturers(){
     String suggested = {"Office Furnishings", "Chairs R Us", "Furniture Goods", "Fine Office Supplies"};
@@ -18,6 +27,9 @@ public class PrintingTest {
     assertEquals(expected,result);
   }
   //test order form
+  /**
+   * tests printing of order form
+   */
 @Test
   public void testWorking(){
     String ids = {"200", "C8138", "C9890"};

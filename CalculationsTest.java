@@ -4,6 +4,12 @@ import org.junit.Test;
 import org.junit.*;
 import java.sql.*;
 
+/**
+ * This class handles unit testing of Calculations
+ * @version 1.0
+ * @since 1.0
+ * @author Kaitlin Culligan, Arindam Mishra, Kunal Dhawan
+ */
 //unit tests for project
 public class CalculationsTest {
   private final String DBURL = "jdbc:mysql://localhost/inventory";
@@ -12,6 +18,9 @@ public class CalculationsTest {
   private Connection dbConnect;
   private ResultSet results;
 
+  /**
+   * initializes db connection
+   */
   @Before
   public void setup(){
     try{
@@ -24,6 +33,10 @@ public class CalculationsTest {
   //need to test when it doesnt work an produces the correct manufacturers list
   //will need one of these tests for each type of furniture
 
+  /**
+   * tests the ability of class to recognize when a item can not be made
+   * and uses a kneeling chair to do this
+   */
   @Test
   public void testManufacturersList(){
     String expected = "0";
@@ -39,6 +52,9 @@ public class CalculationsTest {
   }
   }
 
+  /**
+   * tests programs ability to find right cost for a tradional desk
+   */
   @Test
   public void testCorrectComboSelectedOne(){
     String expected = "100";
@@ -54,6 +70,9 @@ public class CalculationsTest {
   }
   }
 
+   /**
+   * tests programs ability to find right cost for a task chair
+   */
   @Test
   public void testCorrectComboSelectedTwo(){
     String expected = "150";
@@ -69,7 +88,9 @@ public class CalculationsTest {
   }
   }
  
-
+ /**
+   * tests programs ability to find right cost for a mesh chair
+   */
   @Test
   public void testCorrectComboSelectedThree(){
     String expected = "200";
@@ -85,6 +106,9 @@ public class CalculationsTest {
   }
   }
 
+   /**
+   * tests programs ability to find right cost for a executive chair
+   */
   @Test
   public void testCorrectComboSelectedFour(){
     String expected = "400";
@@ -100,6 +124,9 @@ public class CalculationsTest {
   }
   }
 
+   /**
+   * tests programs ability to find right cost for a ergonomic desk
+   */
   @Test
   public void testCorrectComboSelectedFive(){
     String expected = "250";
@@ -115,6 +142,9 @@ public class CalculationsTest {
   }
   }
 
+   /**
+   * tests programs ability to find right cost for a adjustable desk
+   */
   @Test
   public void testCorrectComboSelectedSix(){
     String expected = "400";
@@ -130,6 +160,9 @@ public class CalculationsTest {
   }
   }
 
+   /**
+   * tests programs ability to find right cost for a standing desk
+   */
   @Test
   public void testCorrectComboSelectedSeven(){
     String expected = "300";
@@ -145,6 +178,9 @@ public class CalculationsTest {
   }
   }
 
+   /**
+   * tests programs ability to find right cost for a desk lamp
+   */
   @Test
   public void testCorrectComboSelectedEight(){
     String expected = "20";
@@ -160,6 +196,9 @@ public class CalculationsTest {
   }
   }
 
+   /**
+   * tests programs ability to find right cost for a swing arm lamp
+   */
   @Test
   public void testCorrectComboSelectedNine(){
     String expected = "30";
@@ -175,6 +214,9 @@ public class CalculationsTest {
   }
   }
 
+   /**
+   * tests programs ability to find right cost for a study lamp
+   */
   @Test
   public void testCorrectComboSelectedTen(){
     String expected = "10";
@@ -190,6 +232,9 @@ public class CalculationsTest {
   }
   }
 
+   /**
+   * tests programs ability to find right cost for a small filing cabinet
+   */
   @Test
   public void testCorrectComboSelectedEleven(){
     String expected = "100";
@@ -205,6 +250,9 @@ public class CalculationsTest {
   }
   }
 
+   /**
+   * tests programs ability to find right cost for a medium filing cabinet
+   */
   @Test
   public void testCorrectComboSelectedTwelve(){
     String expected = "200";
@@ -220,6 +268,9 @@ public class CalculationsTest {
   }
   }
 
+   /**
+   * tests programs ability to find right cost for a large filing cabinet
+   */
   @Test
   public void testCorrectComboSelectedThirteen(){
     String expected = "300";

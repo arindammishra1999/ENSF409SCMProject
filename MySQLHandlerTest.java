@@ -3,13 +3,21 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.*;
 import edu.ucalgary.ensf409.MySQLHandler;
-
+/**
+ * This class handles unit testing of MySQLHandler
+ * @version 1.0
+ * @since 1.0
+ * @author Kaitlin Culligan, Arindam Mishra, Kunal Dhawan
+ */
 //unit tests for project
 //need dbconnect getter to fix a lot of issues
 public class MySQLHandlerTest {
     //test pulling manufacturers list
 
     //test delete function
+    /**
+     * tests the delete method
+     */
     @Test
     public void testDelete(){
         //make a queury, delete some of the stuff, try a queury again and see if its there
@@ -34,6 +42,9 @@ public class MySQLHandlerTest {
     }
 
     //test connection
+    /**
+     * tests the connection to the database
+     */
     @Test
     public void testConnection(){
         MySQLHandler sql = new MySQLHandler();
@@ -43,14 +54,20 @@ public class MySQLHandlerTest {
 
     //go through db and find cases where this is possible
     //test handling multiple furniture pieces (and can make all of them)
+    /**
+     * tests the ability of the class to return the cost of multiple item orders
+     */
     @Test
     public void testMultiplePossible(){
         MySQLHandler sql = new MySQLHandler();
         sql.createConnection();
         String[] one = sql.selectFurnitureToOrder("desk", "Adjustable", 2);
-        assertEquals("400",one[0]); //maybe a better way to assert it works
+        assertEquals("800",one[0]); //maybe a better way to assert it works
     }
     //test handling multiple furniture pieces (and can not make all of them)
+    /**
+     * tests the ability of the class to return the manufacturers list on a multiple item order
+     */
    @Test
     public void testMultipleNotPossible(){
         MySQLHandler sql = new MySQLHandler();
@@ -59,6 +76,9 @@ public class MySQLHandlerTest {
         assert(one[1].length > 5);
     }
     //test handling single furniture pieces (and can make it)
+    /**
+     * tests the ability of the class to return the cost of single item orders
+     */
     @Test
     public void testSinglePossible(){
         MySQLHandler sql = new MySQLHandler();
@@ -69,6 +89,9 @@ public class MySQLHandlerTest {
     }
 
     //test handling single furniture pieces (and can not make it)
+    /**
+     * tests the ability of the class to return the manufacturers list on a single item order
+     */
     @Test
     public void testSingleNotPossible(){
         MySQLHandler sql = new MySQLHandler();
