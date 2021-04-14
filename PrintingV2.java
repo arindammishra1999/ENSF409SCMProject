@@ -58,7 +58,7 @@ public class Printing {
 		}
 		toWrite = toWrite +"\n\n";
 		toWrite = toWrite + "Total Price: $" +totalCost;
-		  
+		buffWrite.write(toWrite);	
 		  }else {
 			 toWrite = "Order cannot be fulfilled based on current inventory."
 			 		+ "Suggested manufactures are ";
