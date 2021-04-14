@@ -5,7 +5,7 @@ package edu.ucalgary.ensf409;
  * in an output.txt file.
  * @version 1.0
  * @since 1.0
- * @author Arindam Mishra
+ * @author Arindam Mishra, Kaitlin Culligan, Kunal Dhawan
  */
 import java.io.*;
 
