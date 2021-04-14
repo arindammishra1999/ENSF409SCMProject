@@ -9,12 +9,12 @@ import java.sql.Statement;
 
 /**
  * This class handles SQL
- * @version 1.0
+ * @version 1.2
  * @since 1.0
  * @author Kunal Dhawan
  */
 
-
+//MySQLHandler class begins here
  public class MySQLHandler {
  
     private String DBURL;
