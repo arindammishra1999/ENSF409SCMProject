@@ -11,7 +11,7 @@ import edu.ucalgary.ensf409.Furniture;
  * to create the desired furniture piece
  * @version 1.1
  * @since 1.0
- * @author Kaitlin Culligan
+ * @author Kaitlin Culligan, Arindam Mishra, Kunal Dhawan
  */
 public class Calculations {
     private ArrayList<Integer> costOptions;
