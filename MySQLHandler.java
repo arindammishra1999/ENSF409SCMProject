@@ -75,11 +75,11 @@ import java.sql.Statement;
         
         try {   
         	while(numberOfItems>0) {
+                this.calculator = new Calculations();
             Statement myStmt = dbConnect.createStatement();
             results = myStmt.executeQuery("SELECT * FROM "+ table);
             
              String [] arrayTemp = calculator.calculatePrices(results, type);
-             
             if(arrayTemp.length==1) {
             	manufacturerID= selectManufacturers(table);
             	return manufacturerID;
