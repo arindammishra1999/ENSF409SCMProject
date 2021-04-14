@@ -11,7 +11,7 @@ import java.sql.Statement;
  * This class handles SQL
  * @version 1.2
  * @since 1.0
- * @author Kunal Dhawan
+ * @author Kunal Dhawan, Kaitlin Culligan, Arindam Mishra
  */
 
  public class MySQLHandler {
