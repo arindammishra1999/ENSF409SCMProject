@@ -49,7 +49,7 @@ public class Printing {
 		  toWrite = toWrite +"Contact:\n";
 		  toWrite = toWrite +"Date:\n\n\n";
 		 toWrite = toWrite+"Original Requeast: "+requestString;
-		 toWrite = toWrite +"\n\n\nItemsOrdered\n";
+		 toWrite = toWrite +"\n\n\nItems Ordered:\n";
 		 for(int i=1;i<itemIDs.length;i++) {
 			if(itemIDs[i]!=null){
 			   toWrite = toWrite + "ID: "+itemIDs[i];
