@@ -133,7 +133,10 @@ public class Calculations {
      */
     public String[] createOptions(){
         //need to add print statements to figure out whats gone wrong
-        
+        if(furniture.size()==0){
+            String[] error = {"0"};
+           return error;
+        }
         boolean[] b = createAllTrueArray(furniture.get(0).getPiecesAvailable().length);
        for(int i = 0; i <furniture.size();i++){
            String[] idCombo = {furniture.get(i).getID()};
@@ -163,10 +166,10 @@ public class Calculations {
            String[] error = {"0"};
            return error;
        }
-       String[] idForSelected = new String[idsForEachCostOption.get(costOptions.indexOf(cost)).length];
+       String[] idForSelected = new String[idsForEachCostOption.get(costOptions.indexOf(cost)).length+1];
        idForSelected[0] = String.valueOf(cost);
-       for(int i = 1; i <idsForEachCostOption.get(costOptions.indexOf(cost)).length;i++){
-        idForSelected[i] = idsForEachCostOption.get(costOptions.indexOf(cost))[i];
+       for(int i = 1; i <idsForEachCostOption.get(costOptions.indexOf(cost)).length+1;i++){
+        idForSelected[i] = idsForEachCostOption.get(costOptions.indexOf(cost))[i-1];
        }
        return idForSelected;
        }
