@@ -17,7 +17,7 @@ public class Calculations {
     private ArrayList<Integer> costOptions;
     private ArrayList<Furniture> furniture;
     private ArrayList<String[]> idsForEachCostOption;
-
+    private ArrayList<ArrayList<boolean[]>> piecesPerOption;
     /**
      * This is the constructor, it just initializes the local data members
      */
@@ -25,6 +25,7 @@ public class Calculations {
         this.costOptions = new ArrayList<Integer>();
         this.furniture = new ArrayList<Furniture>();
         this.idsForEachCostOption = new ArrayList<String[]>();
+        this.piecesPerOption = new ArrayList<ArrayList<boolean[]>>();
     }
 
     /**
@@ -56,8 +57,6 @@ public class Calculations {
     public String[] calculatePrices(ResultSet results, String furnitureType) throws SQLException{
         String[] ids = {"0"};
         try{
-            //loop through results checking the one column to see if type matches,
-            //if it does pull the info from the needed rows
             while(results.next()){
                 if(checkFurnitureType(furnitureType, results.getString("Type"))){
                     ArrayList<String> s = new ArrayList<String>();
@@ -71,8 +70,7 @@ public class Calculations {
                     furniture.add(new Furniture(results.getString("Type"),results.getString("ID"),results.getInt("Price"), availability));
                 }
             }
-
-            System.out.println("There are "+furniture.size()+" furniture pieces of this type");
+            
             String[] temp = createOptions();
             if(temp[0].equals("0")){
                 return ids;
@@ -134,26 +132,30 @@ public class Calculations {
      * @return String array containing the best cost, and corresponding ids
      */
     public String[] createOptions(){
+        //need to add print statements to figure out whats gone wrong
+        
         boolean[] b = createAllTrueArray(furniture.get(0).getPiecesAvailable().length);
        for(int i = 0; i <furniture.size();i++){
            String[] idCombo = {furniture.get(i).getID()};
            boolean[] parts = furniture.get(i).getPiecesAvailable();
+           ArrayList<boolean[]> partsUsed = new ArrayList<boolean[]>();
+           partsUsed.add(parts);
            for(int j=0; j<furniture.size();j++){
                 if(!checkArrayEquivalency(parts, furniture.get(j).getPiecesAvailable()) && 
-                !checkArrayEquivalency(parts, b)){
+                !checkArrayEquivalency(parts, b)&& !isInArray(idCombo, furniture.get(j).getID())){
                     parts = addToBooleanArray(parts, furniture.get(j).getPiecesAvailable());
                     idCombo = addToStringArray(idCombo, furniture.get(j).getID());
+                    partsUsed.add(furniture.get(j).getPiecesAvailable());
                 }
            }
-           if(checkArrayEquivalency(parts, b)&&!idsForEachCostOption.contains(idCombo)){
+           if(checkArrayEquivalency(parts, b)){
                 costOptions.add(calculateCostFromIds(idCombo));
                 idsForEachCostOption.add(idCombo);
+                piecesPerOption.add(partsUsed);
            }
        }
-
-       System.out.println("There are "+costOptions.size()+" options for costs");
-       for(int i =0; i < costOptions.size(); i++){
-        System.out.println(costOptions.get(i));
+       for(int i = 0; i < furniture.size(); i++){
+         secondCheck(i);
        }
        
        int cost = choseBestPrice();
@@ -222,7 +224,7 @@ public class Calculations {
      * creates a boolean array of a given length that only
      * holds the value true
      * @param size the size to make the array
-     * @return boolean array of given size that only holds the valye true
+     * @return boolean array of given size that only holds the value true
      */
     private boolean[] createAllTrueArray(int size){
       boolean[] a = new boolean[size];
@@ -266,5 +268,49 @@ public class Calculations {
 
     public ArrayList<Furniture> getFurnitureArray(){
         return this.furniture;
+    }
+
+    /**
+     * checks to see if a given String is in a given String array
+     * @param array array to check against
+     * @param toCheck String to check if in array
+     * @return true if String is in array, false if it isn't
+     */
+    private boolean isInArray(String[] array, String toCheck){
+        for(int i =0; i < array.length; i++){
+            if(array[i].equals(toCheck)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * this performs a check of the 
+     * @param increase the offset to use in the calculations
+     */
+    private void secondCheck(int increase){
+        boolean[] b = createAllTrueArray(furniture.get(0).getPiecesAvailable().length);
+        for(int i = 0; i <furniture.size();i++){
+            String[] idCombo = {furniture.get(i).getID()};
+            boolean[] parts = furniture.get(i).getPiecesAvailable();
+            ArrayList<boolean[]> partsUsed = new ArrayList<boolean[]>();
+            partsUsed.add(parts);
+            for(int j=i+increase; j<furniture.size();j++){
+                if(i+increase < furniture.size()){
+                    if(!checkArrayEquivalency(parts, furniture.get(j).getPiecesAvailable()) && 
+                    !checkArrayEquivalency(parts, b)&& !isInArray(idCombo, furniture.get(j).getID())){
+                        parts = addToBooleanArray(parts, furniture.get(j).getPiecesAvailable());
+                        idCombo = addToStringArray(idCombo, furniture.get(j).getID());
+                        partsUsed.add(furniture.get(j).getPiecesAvailable());
+                    }
+                }
+            }
+            if(checkArrayEquivalency(parts, b)){
+                 costOptions.add(calculateCostFromIds(idCombo));
+                 idsForEachCostOption.add(idCombo);
+                 piecesPerOption.add(partsUsed);
+            }
+        }
     }
 }
