@@ -3,7 +3,7 @@ package edu.ucalgary.ensf409;
  * This class handles the storage of all the possible furniture
  * @version 1.0
  * @since 1.0
- * @author Kaitlin Culligan
+ * @author Kaitlin Culligan, Arindam Mishra, Kunal Dhawan
  */
 public class Furniture {
     private String type;
