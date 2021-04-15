@@ -13,8 +13,8 @@ import java.sql.*;
 //unit tests for project
 public class CalculationsTest {
   private final String DBURL = "jdbc:mysql://localhost/inventory";
-  private final String USERNAME = "Me";
-  private final String PASSWORD = "Admin";
+  private final String USERNAME = "scm";
+  private final String PASSWORD = "ensf409";
   private Connection dbConnect;
   private ResultSet results;
 
