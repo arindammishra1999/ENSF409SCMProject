@@ -49,5 +49,3 @@ public class userInputTest {
 
 
 }
-
-  //then add in combinations of these

@@ -1,5 +1,13 @@
 package edu.ucalgary.ensf409;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import org.junit.Test;
 import org.junit.*;
 import edu.ucalgary.ensf409.MySQLHandler;
@@ -14,7 +22,12 @@ import edu.ucalgary.ensf409.MySQLHandler;
 public class MySQLHandlerTest {
     //test pulling manufacturers list
 
-    //test delete function
+    private Connection dbConnect;
+    private ResultSet results;
+    private String chair = "chair";
+    private Calculations calculator;
+
+	//test delete function
     /**
      * tests the delete method
      */
@@ -22,7 +35,7 @@ public class MySQLHandlerTest {
     public void testDelete(){
         //make a queury, delete some of the stuff, try a queury again and see if its there
         MySQLHandler sql = new MySQLHandler("jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        sql.createConnection();
+        sql.initializeConnection();
         try{
             Statement myStmt = dbConnect.createStatement();
             results = myStmt.executeQuery("SELECT * FROM " + chair);
@@ -34,8 +47,8 @@ public class MySQLHandlerTest {
             Statement myStmtTwo = dbConnect.createStatement();
             results = myStmtTwo.executeQuery("SELECT * FROM " + chair);
             String[] resultTwo = calculator.calculatePrices(results, "Mesh");
-            myStmt.close();
-            assertNotEqual(resultOne,resultTwo);
+            myStmtTwo.close();
+            assertNotEquals(resultOne,resultTwo);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -48,7 +61,7 @@ public class MySQLHandlerTest {
     @Test
     public void testConnection(){
         MySQLHandler sql = new MySQLHandler("jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        sql.createConnection();
+        sql.initializeConnection();
         assertNotNull("connection is null", sql.dbConnectGet());
     }
 
@@ -60,8 +73,8 @@ public class MySQLHandlerTest {
     @Test
     public void testMultiplePossible(){
         MySQLHandler sql = new MySQLHandler("jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        sql.createConnection();
-        String[] one = sql.selectFurnitureToOrder("desk", "Adjustable", 2);
+        sql.initializeConnection();
+        String[] one = sql.selectFurnitureToOrder("desk", "Adjustable", "2");
         assertEquals("800",one[0]); //maybe a better way to assert it works
     }
     //test handling multiple furniture pieces (and can not make all of them)
@@ -71,9 +84,9 @@ public class MySQLHandlerTest {
    @Test
     public void testMultipleNotPossible(){
         MySQLHandler sql = new MySQLHandler("jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        sql.createConnection();
-        String[] one = sql.selectFurnitureToOrder("desk", "Adjustable", 3);
-        assert(one[1].length > 5);
+        sql.initializeConnection();
+        String[] one = sql.selectFurnitureToOrder("desk", "Adjustable", "4");
+        assert(one.length == 4);
     }
     //test handling single furniture pieces (and can make it)
     /**
@@ -82,11 +95,11 @@ public class MySQLHandlerTest {
     @Test
     public void testSinglePossible(){
         MySQLHandler sql = new MySQLHandler("jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        sql.createConnection();
-        String[] one = sql.selectFurnitureToOrder("chair", "Mesh", 1);
+        sql.initializeConnection();
+        String[] one = sql.selectFurnitureToOrder("chair", "Mesh", "1");
         assertEquals("225",one[0]);
     }
-    }
+    
 
     //test handling single furniture pieces (and can not make it)
     /**
@@ -95,8 +108,8 @@ public class MySQLHandlerTest {
     @Test
     public void testSingleNotPossible(){
         MySQLHandler sql = new MySQLHandler("jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        sql.createConnection();
-        String[] one = sql.selectFurnitureToOrder("chair", "Kneeling", 1);
-        assert(one[1].length > 5);
+        sql.initializeConnection();
+        String[] one = sql.selectFurnitureToOrder("chair", "Kneeling", "1");
+        assert(one.length == 4);
     }
 }

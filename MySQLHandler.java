@@ -176,4 +176,8 @@ import java.sql.Statement;
             e.printStackTrace();
         }
     }
+
+	public Object dbConnectGet() {
+		return this.dbConnect;
+	}
 }
