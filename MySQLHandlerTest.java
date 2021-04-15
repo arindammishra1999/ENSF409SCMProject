@@ -21,7 +21,7 @@ public class MySQLHandlerTest {
     @Test
     public void testDelete(){
         //make a queury, delete some of the stuff, try a queury again and see if its there
-        MySQLHandler sql = new MySQLHandler();
+        MySQLHandler sql = new MySQLHandler("jdbc:mysql://localhost/inventory", "scm", "ensf409");
         sql.createConnection();
         try{
             Statement myStmt = dbConnect.createStatement();
@@ -47,7 +47,7 @@ public class MySQLHandlerTest {
      */
     @Test
     public void testConnection(){
-        MySQLHandler sql = new MySQLHandler();
+        MySQLHandler sql = new MySQLHandler("jdbc:mysql://localhost/inventory", "scm", "ensf409");
         sql.createConnection();
         assertNotNull("connection is null", sql.dbConnectGet());
     }
@@ -59,7 +59,7 @@ public class MySQLHandlerTest {
      */
     @Test
     public void testMultiplePossible(){
-        MySQLHandler sql = new MySQLHandler();
+        MySQLHandler sql = new MySQLHandler("jdbc:mysql://localhost/inventory", "scm", "ensf409");
         sql.createConnection();
         String[] one = sql.selectFurnitureToOrder("desk", "Adjustable", 2);
         assertEquals("800",one[0]); //maybe a better way to assert it works
@@ -70,7 +70,7 @@ public class MySQLHandlerTest {
      */
    @Test
     public void testMultipleNotPossible(){
-        MySQLHandler sql = new MySQLHandler();
+        MySQLHandler sql = new MySQLHandler("jdbc:mysql://localhost/inventory", "scm", "ensf409");
         sql.createConnection();
         String[] one = sql.selectFurnitureToOrder("desk", "Adjustable", 3);
         assert(one[1].length > 5);
@@ -81,7 +81,7 @@ public class MySQLHandlerTest {
      */
     @Test
     public void testSinglePossible(){
-        MySQLHandler sql = new MySQLHandler();
+        MySQLHandler sql = new MySQLHandler("jdbc:mysql://localhost/inventory", "scm", "ensf409");
         sql.createConnection();
         String[] one = sql.selectFurnitureToOrder("chair", "Mesh", 1);
         assertEquals("225",one[0]);
@@ -94,7 +94,7 @@ public class MySQLHandlerTest {
      */
     @Test
     public void testSingleNotPossible(){
-        MySQLHandler sql = new MySQLHandler();
+        MySQLHandler sql = new MySQLHandler("jdbc:mysql://localhost/inventory", "scm", "ensf409");
         sql.createConnection();
         String[] one = sql.selectFurnitureToOrder("chair", "Kneeling", 1);
         assert(one[1].length > 5);
