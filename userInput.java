@@ -43,7 +43,7 @@ public class userInput {
 	    */
 	public static void main(String args[]) {
 	
-    MySQLHandler myJDBC = new MySQLHandler ("jdbc:mysql://localhost/inventory", "kunal", "ensf409");
+    MySQLHandler myJDBC = new MySQLHandler ("jdbc:mysql://localhost/inventory", "scm", "ensf409");
     myJDBC.initializeConnection();
     userInput input = new userInput("","","");
 	scanner = new Scanner(System.in);
